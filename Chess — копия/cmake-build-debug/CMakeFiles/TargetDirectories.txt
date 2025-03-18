@@ -1,0 +1,3 @@
+/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles/Chess.dir
+/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles/rebuild_cache.dir
