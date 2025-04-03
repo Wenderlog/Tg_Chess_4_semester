@@ -30,7 +30,6 @@ set(SOURCES
         Run.cpp
         Table.cpp
         Server_Interface.cpp
-        Chess_Engine.cpp
 )
 
 set(HEADERS
@@ -47,7 +46,6 @@ set(HEADERS
         Run.h
         Table.h
         Server_Interface.h
-        Chess_Engine.h
 )
 
 # Создаём исполняемый файл

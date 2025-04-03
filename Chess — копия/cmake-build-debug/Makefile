@@ -201,30 +201,6 @@ Chess/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess/main.cpp.s
 .PHONY : Chess/main.cpp.s
 
-Chess_Engine.o: Chess_Engine.cpp.o
-.PHONY : Chess_Engine.o
-
-# target to build an object file
-Chess_Engine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess_Engine.cpp.o
-.PHONY : Chess_Engine.cpp.o
-
-Chess_Engine.i: Chess_Engine.cpp.i
-.PHONY : Chess_Engine.i
-
-# target to preprocess a source file
-Chess_Engine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess_Engine.cpp.i
-.PHONY : Chess_Engine.cpp.i
-
-Chess_Engine.s: Chess_Engine.cpp.s
-.PHONY : Chess_Engine.s
-
-# target to generate assembly for a file
-Chess_Engine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess_Engine.cpp.s
-.PHONY : Chess_Engine.cpp.s
-
 Empty_Cell.o: Empty_Cell.cpp.o
 .PHONY : Empty_Cell.o
 
@@ -507,9 +483,6 @@ help:
 	@echo "... Chess/main.o"
 	@echo "... Chess/main.i"
 	@echo "... Chess/main.s"
-	@echo "... Chess_Engine.o"
-	@echo "... Chess_Engine.i"
-	@echo "... Chess_Engine.s"
 	@echo "... Empty_Cell.o"
 	@echo "... Empty_Cell.i"
 	@echo "... Empty_Cell.s"

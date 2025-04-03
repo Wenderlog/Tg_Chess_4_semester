@@ -14,7 +14,7 @@ void ChessServer::runServer() {
 
     std::cout << "✅ Server started at http://localhost:9090\n";
 
-    // Авторизация
+    // Authentication
     svr.Post("/auth", [&](const httplib::Request &req, httplib::Response &res) {
         std::string player_id = req.get_param_value("id_player");
         std::string color = req.get_param_value("color");
@@ -40,10 +40,10 @@ void ChessServer::runServer() {
         res.set_content("Player authenticated: " + player_id + " as " + color, "text/plain");
     });
 
-    // Ход
+    // Move
     svr.Post("/move", [&](const httplib::Request &req, httplib::Response &res) {
         std::string player_id = req.get_param_value("id_player");
-        std::string move = req.get_param_value("move"); // Пример: e2e4
+        std::string move = req.get_param_value("move"); // Example: e2e4
 
         std::lock_guard<std::mutex> lock(game_mutex);
 
@@ -54,45 +54,45 @@ void ChessServer::runServer() {
 
         std::string color = player_map[player_id];
 
-        // Получаем текущий ход через объект Table
+        // Get the current turn from the Table object
         Colour current_turn = table.GetCurrentTurn();
 
-        // Проверка, что текущий ход соответствует игроку
+        // Check if it is the player's turn
         if ((color == "White" && current_turn != Colour::WHITE) ||
             (color == "Black" && current_turn != Colour::BLACK)) {
             res.set_content("It's not your turn!", "text/plain");
             return;
         }
 
-        // Преобразуем строку хода в координаты
+        // Convert the move string to coordinates
         auto coords = manager_.WordToCoord(table.getBoard(), move);
 
-        // Если координаты неверны
+        // If coordinates are invalid
         if (coords.first.row == 8 || coords.second.row == 8) {
             res.set_content("Invalid coordinates!", "text/plain");
             return;
         }
 
-        // Проверка на допустимость хода
+        // Check if the move is valid
         auto turnVerdict = table.CheckTurn(coords.first, coords.second);
         if (turnVerdict != Table::TurnVerdict::correct) {
             res.set_content("Invalid move!", "text/plain");
             return;
         }
 
-        // Выполняем ход
+        // Execute the move
         table.DoTurn(coords.first, coords.second);
 
-        // Меняем текущий ход
+        // Change the current turn
         current_turn = (current_turn == Colour::WHITE) ? Colour::BLACK : Colour::WHITE;
         res.set_content("Move accepted: " + move + ". Now it's " + (current_turn == Colour::WHITE ? "White" : "Black") + "'s turn.", "text/plain");
     });
 
-    // Статус игры
+    // Game status
     svr.Get("/status", [&](const httplib::Request &, httplib::Response &res) {
         std::lock_guard<std::mutex> lock(game_mutex);
 
-        // Получаем текущий ход через объект Table
+        // Get the current turn from the Table object
         Colour current_turn = table.GetCurrentTurn();
         std::string turn_str = (current_turn == Colour::WHITE) ? "White" : "Black";
 
@@ -101,14 +101,14 @@ void ChessServer::runServer() {
                         "\nBlack: " + (black_player_id.empty() ? "None" : black_player_id), "text/plain");
     });
 
-    // Получение состояния доски
+    // Get board state
     svr.Get("/board", [&](const httplib::Request &, httplib::Response &res) {
         std::lock_guard<std::mutex> lock(game_mutex);
 
-        // Получаем строковое представление доски
+        // Get the string representation of the board
         std::string boardState = table.GenerateBoardState();
 
-        // Отправляем строку доски как текст
+        // Send the board state as text
         res.set_content(boardState, "text/plain");
     });
 

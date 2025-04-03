@@ -5,8 +5,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/Chess.dir/Cell.cpp.o.d"
   "CMakeFiles/Chess.dir/Chess/main.cpp.o"
   "CMakeFiles/Chess.dir/Chess/main.cpp.o.d"
-  "CMakeFiles/Chess.dir/Chess_Engine.cpp.o"
-  "CMakeFiles/Chess.dir/Chess_Engine.cpp.o.d"
   "CMakeFiles/Chess.dir/Empty_Cell.cpp.o"
   "CMakeFiles/Chess.dir/Empty_Cell.cpp.o.d"
   "CMakeFiles/Chess.dir/Game.cpp.o"
