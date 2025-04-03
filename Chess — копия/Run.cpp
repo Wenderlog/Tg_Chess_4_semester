@@ -170,3 +170,29 @@ void RunningGame::CheckDrawConditions() {
     game_.CheckForRepetition();
     game_.CheckFor50MovesWithoutCapture();
 }
+
+bool RunningGame::HandleMove(const std::string& move, const std::string& color) {
+    auto coords = manager_.WordToCoord(chessTable_.getBoard(), move);
+    if (coords.first.row == 8 || coords.second.row == 8) {
+        return false;
+    }
+
+    // Получаем текущий ход через объект Table
+    Colour current_turn = chessTable_.GetCurrentTurn();  // Используем GetCurrentTurn() из Table
+
+    // Проверка, что текущий ход соответствует игроку
+    if ((color == "White" && current_turn != Colour::WHITE) ||
+        (color == "Black" && current_turn != Colour::BLACK)) {
+        return false;  // Это не твой ход
+        }
+
+    // Выполняем ход
+    auto turnVerdict = chessTable_.CheckTurn(coords.first, coords.second);
+    if (turnVerdict == Table::TurnVerdict::correct) {
+        chessTable_.DoTurn(coords.first, coords.second);
+        return true;
+    } else {
+        std::cerr << "Invalid move!" << std::endl;
+        return false;
+    }
+}

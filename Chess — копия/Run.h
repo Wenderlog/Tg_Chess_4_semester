@@ -40,6 +40,7 @@ public:
      */
     
     int Run();
+    bool HandleMove(const std::string& move, const std::string& color);
 
 private:
 

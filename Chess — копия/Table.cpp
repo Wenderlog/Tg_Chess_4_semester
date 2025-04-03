@@ -160,12 +160,6 @@ bool Table::CheckAttack(Coord from, Coord to) const {
     Colour pawnColour = fromCell->getColour();
     int direction = (pawnColour == Colour::WHITE) ? 1 : -1;
 
-    // if ((last_move_is_w_pawn_ || last_move_is_b_pawn_) && coord_w_pawn_ == Coord(to.row - direction, to.col)) {
-    //   if (toCell == nullptr && abs(from.col - to.col) == 1 && to.row == from.row + direction) {
-    //     return true;
-    //   }
-    // }
-
     if (toCell->getColour() != fromCell->getColour() && abs(from.col - to.col) == 1 && to.row == from.row + direction) {
       return true;
     }
@@ -454,3 +448,7 @@ Coord Table::BlackKing() const {
   }
   return {};
 }
+
+ Colour Table::GetCurrentTurn() const {
+        return currentTurn;
+  }

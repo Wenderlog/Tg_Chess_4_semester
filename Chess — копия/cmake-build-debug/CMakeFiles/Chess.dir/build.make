@@ -254,6 +254,34 @@ CMakeFiles/Chess.dir/Table.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Chess.dir/Table.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wenderlender/Desktop/Chess/Table.cpp -o CMakeFiles/Chess.dir/Table.cpp.s
 
+CMakeFiles/Chess.dir/Server_Interface.cpp.o: CMakeFiles/Chess.dir/flags.make
+CMakeFiles/Chess.dir/Server_Interface.cpp.o: /Users/wenderlender/Desktop/Chess/Server_Interface.cpp
+CMakeFiles/Chess.dir/Server_Interface.cpp.o: CMakeFiles/Chess.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Chess.dir/Server_Interface.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Chess.dir/Server_Interface.cpp.o -MF CMakeFiles/Chess.dir/Server_Interface.cpp.o.d -o CMakeFiles/Chess.dir/Server_Interface.cpp.o -c /Users/wenderlender/Desktop/Chess/Server_Interface.cpp
+
+CMakeFiles/Chess.dir/Server_Interface.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Chess.dir/Server_Interface.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wenderlender/Desktop/Chess/Server_Interface.cpp > CMakeFiles/Chess.dir/Server_Interface.cpp.i
+
+CMakeFiles/Chess.dir/Server_Interface.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Chess.dir/Server_Interface.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wenderlender/Desktop/Chess/Server_Interface.cpp -o CMakeFiles/Chess.dir/Server_Interface.cpp.s
+
+CMakeFiles/Chess.dir/Chess_Engine.cpp.o: CMakeFiles/Chess.dir/flags.make
+CMakeFiles/Chess.dir/Chess_Engine.cpp.o: /Users/wenderlender/Desktop/Chess/Chess_Engine.cpp
+CMakeFiles/Chess.dir/Chess_Engine.cpp.o: CMakeFiles/Chess.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Chess.dir/Chess_Engine.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Chess.dir/Chess_Engine.cpp.o -MF CMakeFiles/Chess.dir/Chess_Engine.cpp.o.d -o CMakeFiles/Chess.dir/Chess_Engine.cpp.o -c /Users/wenderlender/Desktop/Chess/Chess_Engine.cpp
+
+CMakeFiles/Chess.dir/Chess_Engine.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Chess.dir/Chess_Engine.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wenderlender/Desktop/Chess/Chess_Engine.cpp > CMakeFiles/Chess.dir/Chess_Engine.cpp.i
+
+CMakeFiles/Chess.dir/Chess_Engine.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Chess.dir/Chess_Engine.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wenderlender/Desktop/Chess/Chess_Engine.cpp -o CMakeFiles/Chess.dir/Chess_Engine.cpp.s
+
 # Object files for target Chess
 Chess_OBJECTS = \
 "CMakeFiles/Chess.dir/Chess/main.cpp.o" \
@@ -268,7 +296,9 @@ Chess_OBJECTS = \
 "CMakeFiles/Chess.dir/Queen_Cell.cpp.o" \
 "CMakeFiles/Chess.dir/Rook_Cell.cpp.o" \
 "CMakeFiles/Chess.dir/Run.cpp.o" \
-"CMakeFiles/Chess.dir/Table.cpp.o"
+"CMakeFiles/Chess.dir/Table.cpp.o" \
+"CMakeFiles/Chess.dir/Server_Interface.cpp.o" \
+"CMakeFiles/Chess.dir/Chess_Engine.cpp.o"
 
 # External object files for target Chess
 Chess_EXTERNAL_OBJECTS =
@@ -286,12 +316,14 @@ Chess: CMakeFiles/Chess.dir/Queen_Cell.cpp.o
 Chess: CMakeFiles/Chess.dir/Rook_Cell.cpp.o
 Chess: CMakeFiles/Chess.dir/Run.cpp.o
 Chess: CMakeFiles/Chess.dir/Table.cpp.o
+Chess: CMakeFiles/Chess.dir/Server_Interface.cpp.o
+Chess: CMakeFiles/Chess.dir/Chess_Engine.cpp.o
 Chess: CMakeFiles/Chess.dir/build.make
 Chess: /opt/homebrew/lib/libboost_filesystem.dylib
 Chess: /opt/homebrew/lib/libboost_system.dylib
 Chess: /opt/homebrew/lib/libboost_atomic.dylib
 Chess: CMakeFiles/Chess.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable Chess"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable Chess"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Chess.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

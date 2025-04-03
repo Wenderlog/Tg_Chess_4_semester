@@ -225,6 +225,9 @@ Chess_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Chess_SOURCE_DIR:STATIC=/Users/wenderlender/Desktop/Chess
 
+//The directory containing a CMake configuration file for PQXX.
+PQXX_DIR:PATH=PQXX_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for boost_atomic.
 boost_atomic_DIR:PATH=/opt/homebrew/lib/cmake/boost_atomic-1.87.0
 

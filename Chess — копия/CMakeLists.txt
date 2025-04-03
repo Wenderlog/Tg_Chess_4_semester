@@ -29,6 +29,8 @@ set(SOURCES
         Rook_Cell.cpp
         Run.cpp
         Table.cpp
+        Server_Interface.cpp
+        Chess_Engine.cpp
 )
 
 set(HEADERS
@@ -44,6 +46,8 @@ set(HEADERS
         Rook_Cell.h
         Run.h
         Table.h
+        Server_Interface.h
+        Chess_Engine.h
 )
 
 # Создаём исполняемый файл

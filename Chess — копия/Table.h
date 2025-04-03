@@ -168,6 +168,12 @@ public:
      */
     Table();
 
+    /*!
+ * \brief Retrieves the color of the player whose turn it is.
+ * \return `Colour::WHITE` if it is White's turn, otherwise `Colour::BLACK`.
+ */
+    Colour GetCurrentTurn() const;
+
 private:
     Coord WhiteKing() const;
     Coord BlackKing() const;

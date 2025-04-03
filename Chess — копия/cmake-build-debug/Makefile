@@ -201,6 +201,30 @@ Chess/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess/main.cpp.s
 .PHONY : Chess/main.cpp.s
 
+Chess_Engine.o: Chess_Engine.cpp.o
+.PHONY : Chess_Engine.o
+
+# target to build an object file
+Chess_Engine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess_Engine.cpp.o
+.PHONY : Chess_Engine.cpp.o
+
+Chess_Engine.i: Chess_Engine.cpp.i
+.PHONY : Chess_Engine.i
+
+# target to preprocess a source file
+Chess_Engine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess_Engine.cpp.i
+.PHONY : Chess_Engine.cpp.i
+
+Chess_Engine.s: Chess_Engine.cpp.s
+.PHONY : Chess_Engine.s
+
+# target to generate assembly for a file
+Chess_Engine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Chess_Engine.cpp.s
+.PHONY : Chess_Engine.cpp.s
+
 Empty_Cell.o: Empty_Cell.cpp.o
 .PHONY : Empty_Cell.o
 
@@ -417,6 +441,30 @@ Run.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Run.cpp.s
 .PHONY : Run.cpp.s
 
+Server_Interface.o: Server_Interface.cpp.o
+.PHONY : Server_Interface.o
+
+# target to build an object file
+Server_Interface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Interface.cpp.o
+.PHONY : Server_Interface.cpp.o
+
+Server_Interface.i: Server_Interface.cpp.i
+.PHONY : Server_Interface.i
+
+# target to preprocess a source file
+Server_Interface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Interface.cpp.i
+.PHONY : Server_Interface.cpp.i
+
+Server_Interface.s: Server_Interface.cpp.s
+.PHONY : Server_Interface.s
+
+# target to generate assembly for a file
+Server_Interface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Interface.cpp.s
+.PHONY : Server_Interface.cpp.s
+
 Table.o: Table.cpp.o
 .PHONY : Table.o
 
@@ -459,6 +507,9 @@ help:
 	@echo "... Chess/main.o"
 	@echo "... Chess/main.i"
 	@echo "... Chess/main.s"
+	@echo "... Chess_Engine.o"
+	@echo "... Chess_Engine.i"
+	@echo "... Chess_Engine.s"
 	@echo "... Empty_Cell.o"
 	@echo "... Empty_Cell.i"
 	@echo "... Empty_Cell.s"
@@ -486,6 +537,9 @@ help:
 	@echo "... Run.o"
 	@echo "... Run.i"
 	@echo "... Run.s"
+	@echo "... Server_Interface.o"
+	@echo "... Server_Interface.i"
+	@echo "... Server_Interface.s"
 	@echo "... Table.o"
 	@echo "... Table.i"
 	@echo "... Table.s"
