@@ -3,17 +3,6 @@ project(Chess)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Указываем пути к заголовочным файлам
-include_directories(${CMAKE_SOURCE_DIR})
-include_directories(/opt/homebrew/include)
-
-# Подключаем Boost
-find_package(Boost REQUIRED COMPONENTS system filesystem)
-include_directories(${Boost_INCLUDE_DIRS})
-
-# Подключаем cpp-httplib
-include_directories(/opt/homebrew/include/cpp-httplib)
-
 # Добавляем файлы проекта
 set(SOURCES
         Chess/main.cpp
@@ -30,6 +19,9 @@ set(SOURCES
         Run.cpp
         Table.cpp
         Server_Interface.cpp
+        Server_Manager.cpp
+        My_Blocking_Queue.cpp
+        My_Blocking_Queue.h
 )
 
 set(HEADERS
@@ -46,10 +38,26 @@ set(HEADERS
         Run.h
         Table.h
         Server_Interface.h
+        Server_Manager.h
+        My_Blocking_Queue.cpp
+        My_Blocking_Queue.h
 )
 
 # Создаём исполняемый файл
 add_executable(Chess ${SOURCES} ${HEADERS})
+
+# Указываем пути к заголовочным файлам
+target_include_directories(Chess PRIVATE ${CMAKE_SOURCE_DIR})
+target_include_directories(Chess PRIVATE /opt/homebrew/include)
+
+
+# Подключаем Boost
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+target_include_directories(Chess PRIVATE ${Boost_INCLUDE_DIRS})
+
+# Подключаем cpp-httplib
+target_include_directories(Chess PRIVATE /opt/homebrew/include/cpp-httplib)
+
 
 # Линкуем Boost и cpp-httplib
 target_link_libraries(Chess ${Boost_LIBRARIES})

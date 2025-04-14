@@ -60,7 +60,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /Users/wenderlender/Desktop/Chess
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/wenderlender/Desktop/Chess/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/wenderlender/Desktop/Chess
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles /Users/wenderlender/Desktop/Chess/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/wenderlender/Desktop/Chess/CMakeFiles /Users/wenderlender/Desktop/Chess//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/wenderlender/Desktop/Chess/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/wenderlender/Desktop/Chess/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -321,6 +321,30 @@ Manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Manager.cpp.s
 .PHONY : Manager.cpp.s
 
+My_Blocking_Queue.o: My_Blocking_Queue.cpp.o
+.PHONY : My_Blocking_Queue.o
+
+# target to build an object file
+My_Blocking_Queue.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/My_Blocking_Queue.cpp.o
+.PHONY : My_Blocking_Queue.cpp.o
+
+My_Blocking_Queue.i: My_Blocking_Queue.cpp.i
+.PHONY : My_Blocking_Queue.i
+
+# target to preprocess a source file
+My_Blocking_Queue.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/My_Blocking_Queue.cpp.i
+.PHONY : My_Blocking_Queue.cpp.i
+
+My_Blocking_Queue.s: My_Blocking_Queue.cpp.s
+.PHONY : My_Blocking_Queue.s
+
+# target to generate assembly for a file
+My_Blocking_Queue.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/My_Blocking_Queue.cpp.s
+.PHONY : My_Blocking_Queue.cpp.s
+
 Pawn_Cell.o: Pawn_Cell.cpp.o
 .PHONY : Pawn_Cell.o
 
@@ -441,6 +465,30 @@ Server_Interface.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Interface.cpp.s
 .PHONY : Server_Interface.cpp.s
 
+Server_Manager.o: Server_Manager.cpp.o
+.PHONY : Server_Manager.o
+
+# target to build an object file
+Server_Manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Manager.cpp.o
+.PHONY : Server_Manager.cpp.o
+
+Server_Manager.i: Server_Manager.cpp.i
+.PHONY : Server_Manager.i
+
+# target to preprocess a source file
+Server_Manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Manager.cpp.i
+.PHONY : Server_Manager.cpp.i
+
+Server_Manager.s: Server_Manager.cpp.s
+.PHONY : Server_Manager.s
+
+# target to generate assembly for a file
+Server_Manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chess.dir/build.make CMakeFiles/Chess.dir/Server_Manager.cpp.s
+.PHONY : Server_Manager.cpp.s
+
 Table.o: Table.cpp.o
 .PHONY : Table.o
 
@@ -498,6 +546,9 @@ help:
 	@echo "... Manager.o"
 	@echo "... Manager.i"
 	@echo "... Manager.s"
+	@echo "... My_Blocking_Queue.o"
+	@echo "... My_Blocking_Queue.i"
+	@echo "... My_Blocking_Queue.s"
 	@echo "... Pawn_Cell.o"
 	@echo "... Pawn_Cell.i"
 	@echo "... Pawn_Cell.s"
@@ -513,6 +564,9 @@ help:
 	@echo "... Server_Interface.o"
 	@echo "... Server_Interface.i"
 	@echo "... Server_Interface.s"
+	@echo "... Server_Manager.o"
+	@echo "... Server_Manager.i"
+	@echo "... Server_Manager.s"
 	@echo "... Table.o"
 	@echo "... Table.i"
 	@echo "... Table.s"
