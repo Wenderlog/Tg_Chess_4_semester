@@ -186,7 +186,7 @@ private:
     bool wr_rook_moves_;        ///< Tracks if the white right rook has moved.
     bool bl_rook_moves_;        ///< Tracks if the black left rook has moved.
     bool br_rook_moves_;        ///< Tracks if the black right rook has moved.
-    bool last_move_is_w_pawn_;  ///< Tracks if the last move involved a white pawn.
+    bool last_move_is_w_pawn_ = false;  ///< Tracks if the last move involved a white pawn.
     bool last_move_is_b_pawn_;  ///< Tracks if the last move involved a black pawn.
     Coord coord_w_pawn_;        ///< Coordinates of the last moved white pawn.
     Coord coord_b_pawn_;        ///< Coordinates of the last moved black pawn.

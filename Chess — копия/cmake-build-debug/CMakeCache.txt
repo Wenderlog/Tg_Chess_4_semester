@@ -15,7 +15,7 @@
 ########################
 
 //The directory containing a CMake configuration file for Boost.
-Boost_DIR:PATH=/opt/homebrew/lib/cmake/Boost-1.87.0
+Boost_DIR:PATH=/opt/homebrew/lib/cmake/Boost-1.88.0
 
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=CMAKE_ADDR2LINE-NOTFOUND
@@ -226,16 +226,16 @@ Chess_IS_TOP_LEVEL:STATIC=ON
 Chess_SOURCE_DIR:STATIC=/Users/wenderlender/Desktop/Chess
 
 //The directory containing a CMake configuration file for boost_atomic.
-boost_atomic_DIR:PATH=/opt/homebrew/lib/cmake/boost_atomic-1.87.0
+boost_atomic_DIR:PATH=/opt/homebrew/lib/cmake/boost_atomic-1.88.0
 
 //The directory containing a CMake configuration file for boost_filesystem.
-boost_filesystem_DIR:PATH=/opt/homebrew/lib/cmake/boost_filesystem-1.87.0
+boost_filesystem_DIR:PATH=/opt/homebrew/lib/cmake/boost_filesystem-1.88.0
 
 //The directory containing a CMake configuration file for boost_headers.
-boost_headers_DIR:PATH=/opt/homebrew/lib/cmake/boost_headers-1.87.0
+boost_headers_DIR:PATH=/opt/homebrew/lib/cmake/boost_headers-1.88.0
 
 //The directory containing a CMake configuration file for boost_system.
-boost_system_DIR:PATH=/opt/homebrew/lib/cmake/boost_system-1.87.0
+boost_system_DIR:PATH=/opt/homebrew/lib/cmake/boost_system-1.88.0
 
 
 ########################

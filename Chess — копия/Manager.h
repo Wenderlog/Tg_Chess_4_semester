@@ -12,6 +12,7 @@
 #include <sstream>
 #include <string>
 #include <utility>
+#include "Types/Game_types.h"
 
 #include "Table.h"
 

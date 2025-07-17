@@ -3,7 +3,6 @@ project(Chess)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Добавляем файлы проекта
 set(SOURCES
         Chess/main.cpp
         Bishop_Cell.cpp
@@ -20,8 +19,8 @@ set(SOURCES
         Table.cpp
         Server_Interface.cpp
         Server_Manager.cpp
-        My_Blocking_Queue.cpp
-        My_Blocking_Queue.h
+        Types/Game_types.cpp
+        DataBase.cpp
 )
 
 set(HEADERS
@@ -39,25 +38,24 @@ set(HEADERS
         Table.h
         Server_Interface.h
         Server_Manager.h
-        My_Blocking_Queue.cpp
         My_Blocking_Queue.h
+        Types/DataBase_types.h
+        Types/Game_types.h
+        DataBase.h
 )
-
-# Создаём исполняемый файл
 add_executable(Chess ${SOURCES} ${HEADERS})
 
-# Указываем пути к заголовочным файлам
-target_include_directories(Chess PRIVATE ${CMAKE_SOURCE_DIR})
-target_include_directories(Chess PRIVATE /opt/homebrew/include)
-
-
-# Подключаем Boost
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 target_include_directories(Chess PRIVATE ${Boost_INCLUDE_DIRS})
 
-# Подключаем cpp-httplib
-target_include_directories(Chess PRIVATE /opt/homebrew/include/cpp-httplib)
+# Пути к заголовкам libpqxx
+target_include_directories(Chess PRIVATE /opt/homebrew/Cellar/libpqxx/7.10.1/include)
 
-
-# Линкуем Boost и cpp-httplib
-target_link_libraries(Chess ${Boost_LIBRARIES})
+# Явно указываем путь к libpqxx и libpq
+target_link_libraries(Chess PRIVATE
+        ${Boost_LIBRARIES}
+        /opt/homebrew/lib/libboost_thread.dylib
+        /opt/homebrew/lib/libboost_atomic.dylib
+        /opt/homebrew/Cellar/libpqxx/7.10.1/lib/libpqxx.dylib
+        /opt/homebrew/Cellar/libpq/17.4_1/lib/libpq.dylib
+)

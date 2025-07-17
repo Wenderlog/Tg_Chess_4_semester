@@ -100,7 +100,7 @@ RunningGame::RunningGame() : chessTable_(), game_(chessTable_), manager_() {}
 int RunningGame::Run() {
     
     try {
-        game_.StartGame();
+        //game_.StartGame();
 
         while (true) {
             DisplayBoardState();
@@ -188,8 +188,8 @@ bool RunningGame::HandleMove(const std::string& move, const std::string& color) 
     if (turnVerdict == Table::TurnVerdict::correct) {
         chessTable_.DoTurn(coords.first, coords.second);
         return true;
-    } else {
-        std::cerr << "Invalid move!" << std::endl;
-        return false;
     }
+
+    std::cerr << "Invalid move!" << std::endl;
+    return false;
 }

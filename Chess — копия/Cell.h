@@ -12,34 +12,9 @@
  cell color, available moves and cell name.
  */
 
-#include <cstddef>
-#include <memory>
-#include <string>
-#include <vector>
+#include "Types/Game_types.h"
 #include <string_view>
 #include <unordered_set>
-/*!\namespace
- *\brief Allows the compiler to evaluate the value of an expression immediately, making programs more optimized.
- */
-
-enum class Colour { BLACK, WHITE };
-
-/*! \brief Created colored squares in chess
- */
-
-struct Coord {
-  int row = 8;
-  int col = 8;
-  bool operator==(Coord other) const;
-};
-
-namespace std {
-template <>
-class hash<Coord> {
- public:
-  size_t operator()(Coord coord) const;
-};
-} 
 
 /*! \brief Supports the basic functions of a regular cell in chess
  */
@@ -53,7 +28,6 @@ class Cell {
   virtual std::unordered_set<Coord> getHits() const = 0;  ///< Displays a vector of possible impacts
   virtual std::unordered_set<Coord> getReservedSteps() const = 0; ///< The method calculates possible moves of the figure
   virtual std::string_view Name() const = 0;  ///< Created for assigning a name to a figure
-  // virtual Cell* Copy() const = 0; ///< Created to copy a cell but so far not used anywhere in the code
   virtual char getSymbol() const = 0;
 
  protected:

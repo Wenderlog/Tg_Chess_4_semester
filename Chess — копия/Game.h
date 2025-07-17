@@ -77,4 +77,5 @@ private:
     Table& chessTable; ///< Reference to the `Table` class representing the chessboard.
     int movesWithoutCapture = 0; ///< Tracks the number of moves without a capture.
     bool lastMoveWasCapture = false; ///< Tracks whether the last move was a capture.
+    std::string game_id_;
 };

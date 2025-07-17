@@ -8,7 +8,7 @@
 #include <string>
 #include <map>
 #include "/Users/wenderlender/Desktop/Chess/Table.h"
-#include "/Users/wenderlender/Desktop/Chess/Manager.h"
+#include "/Users/wenderlender/Desktop/Chess/Server_Manager.h"
 
 /*!
  \class ChessServer
@@ -30,7 +30,19 @@ public:
      \details Initializes the chess server, setting up necessary objects for handling the game logic,
               but does not start the server until the `runServer` method is called.
      */
-    ChessServer() = default;
+    ChessServer()
+        : game_mutex()
+        , id_generator(1)
+        , manager_("host=localhost port=5433 dbname=mydb user=myuser password=mypassword")
+        , running_game_()
+        , database_("host=localhost port=5433 dbname=mydb user=myuser password=mypassword")
+        , table()
+        , player_map()
+        , game_players()
+        , pending_game_id(std::nullopt)
+    {}
+
+    void doAuth(const httplib::Request &req, httplib::Response &res);
 
     /*!
      \brief Starts the chess server and begins listening for requests.
@@ -40,10 +52,22 @@ public:
     void runServer();
 
 private:
+    /*
     std::mutex game_mutex;  ///< Mutex for thread safety to protect shared resources.
     Table table;            ///< The chessboard and game logic handler.
     Manager manager_;       ///< The manager responsible for move validation and logic.
     std::map<std::string, std::string> player_map;  ///< Map storing player IDs and their associated colors.
     std::string white_player_id;  ///< Player ID for the white player.
     std::string black_player_id;  ///< Player ID for the black player.
+    */
+    std::mutex game_mutex;  ///< Мьютекс для потокобезопасной работы с игроками и играми.
+
+    idGenerator id_generator{1}; ///< Генератор уникальных ID (начинаем с 1).
+    Games_Manager manager_{"host=localhost port=5433 dbname=mydb user=myuser password=mypassword"};;      ///< Менеджер всех активных игр.
+    RunningGame running_game_;
+    DataBase database_{"host=localhost port=5433 dbname=mydb user=myuser password=mypassword"}; ///< Подключение к БД.
+    Table table;
+    std::unordered_map<int, std::string> player_map;           ///< player_id → цвет ("White" / "Black").
+    std::unordered_map<int, std::vector<int>> game_players;    ///< game_id → список ID игроков.
+    std::optional<int> pending_game_id;
 };

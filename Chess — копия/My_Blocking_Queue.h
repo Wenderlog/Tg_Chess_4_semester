@@ -7,13 +7,12 @@
 #include <optional>
 #include <queue>
 #include <mutex>
-#include <queue>
 
 
 template <typename T>
 class BlockingQueue {
   public:
-    std::optional<T> Get();
+    std::optional<T> Get(); // перенести сюда реализацию шаблонов, удалить cpp
     void ShutDown();
     void Close();
     void PushBack(T object);
@@ -28,7 +27,7 @@ class BlockingQueue {
 
 template <typename T>
 void BlockingQueue<T>::PushBack(T object) {
-  std::lock_guard lock(mutex_);
+  std::lock_guard lock(mutex_); // wait переписатьь через цикл с использованием cv_
   if (isOpen_) {
     queue_.push_back(std::move(object));
     if (0 < count_) {
@@ -68,26 +67,26 @@ void BlockingQueue<T>::ShutDown() {
 template<typename T>
 std::optional<T> BlockingQueue<T>::Get() {
   std::unique_lock lock(mutex_);
+
   if (!queue_.empty()) {
     T object = queue_.front();
     queue_.pop();
     cv_.notify_one();
     return object;
   }
-  else {
+
     std::cerr << "Очередь пустая" << std::endl;
     ++count_;
-    cv_.wait(lock, [&](){return !queue_.empty() || !isOpen_;});
+    cv_.wait(lock, [&](){return !queue_.empty() || !isOpen_;}); // добавить второй cv_ на empty.
     --count_;
+
     if (!queue_.empty()) {
       T object = queue_.front();
       queue_.pop();
       return object;
     }
-    return std::nullopt;
-  }
+
+  return std::nullopt;
 }
-
-
 
 
