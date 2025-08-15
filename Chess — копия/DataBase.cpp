@@ -29,17 +29,23 @@ pqxx::result DataBase::Execute(const std::string& query) {
         pqxx::result res = txn.exec(query);
         txn.commit();
 
-        // Вывод результата для отладки (можно убрать)
+        // Безопасный вывод результата для отладки
         for (const auto& row : res) {
-            std::cout << "ID: " << row["id"].as<int>()
-                      << ", Username: " << row["username"].c_str() << std::endl;
+            // Проверяем, есть ли колонки
+            if (row.size() > 0) {
+                std::cout << "Row: ";
+                for (std::size_t i = 0; i < res.columns(); ++i) {
+                    std::cout << res.column_name(i) << "=" << row[i].c_str() << " ";
+                }
+                std::cout << std::endl;
+            }
         }
 
         return res;
     }
     catch (const std::exception &e) {
         std::cerr << "Ошибка выполнения запроса: " << e.what() << std::endl;
-        throw;  // или можно вернуть пустой результат, зависит от логики
+        throw;  // или можно вернуть пустой результат
     }
 }
 

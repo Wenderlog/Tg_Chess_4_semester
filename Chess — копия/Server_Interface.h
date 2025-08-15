@@ -7,7 +7,7 @@
 #include <mutex>
 #include <string>
 #include <map>
-#include "/Users/wenderlender/Desktop/Chess/Table.h"
+#include "Table.h"
 #include "/Users/wenderlender/Desktop/Chess/Server_Manager.h"
 
 /*!
