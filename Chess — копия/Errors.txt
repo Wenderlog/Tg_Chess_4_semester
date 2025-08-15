@@ -1,0 +1,13 @@
+returns:
+0 - Successful
+1 - InvalidMove
+2 - InvalidRotateKingIsMoved
+3 - InvalidRotateRookIsMoved
+4 - InvalidRotateKingIsInDanger
+5 - InvalidRotateKingWillBeInDanger
+6 - InvalidRotateThereAreAnotherFigure
+7 - InvalidRotateEmptyCellsHit
+8 - InvalidTurnFormat
+9 - TheKingIsInDanger
+10 - KingWillBeInDanger
+11 - InvalidPromotionType

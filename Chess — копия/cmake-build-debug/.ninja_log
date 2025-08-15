@@ -1,0 +1,22 @@
+# ninja log v6
+14	4010	1752598574579922731	CMakeFiles/Chess.dir/Server_Interface.cpp.o	2b5bb006af4faad8
+12	3109	1752598574578621180	CMakeFiles/Chess.dir/Chess/main.cpp.o	c886115448299a0b
+759	1649	1752242365484377633	CMakeFiles/Chess.dir/Queen_Cell.cpp.o	58c0e67af4d64d58
+10	821	1752597634081411129	CMakeFiles/Chess.dir/DataBase.cpp.o	4adfc06ba4b13f72
+4010	4102	1752598578576067050	Chess	187c6aa1a23e77d8
+1	756	1752242364726653982	CMakeFiles/Chess.dir/Cell.cpp.o	4cbab92b0e0250ee
+2	927	1752242364727275816	CMakeFiles/Chess.dir/Game.cpp.o	2a4da1513ffc5fb2
+830	1833	1752242365555794137	CMakeFiles/Chess.dir/Table.cpp.o	a3d5f4fa15f20b5a
+3	987	1752242364728227399	CMakeFiles/Chess.dir/Manager.cpp.o	b221ea51c3c05669
+765	1608	1752242365490568304	CMakeFiles/Chess.dir/Rook_Cell.cpp.o	af6bfa41498c79b4
+928	1577	1752242365653365532	CMakeFiles/Chess.dir/Types/Game_types.cpp.o	63378d3b063a697a
+1	921	1752242364726519023	CMakeFiles/Chess.dir/Bishop_Cell.cpp.o	554767c6bed4ec8b
+2	81	1752758085685189170	build.ninja	89f851a73926e969
+2	836	1752242364727515441	CMakeFiles/Chess.dir/King_Cell.cpp.o	20264baba72ebd41
+2	765	1752242364727761691	CMakeFiles/Chess.dir/Knight_Cell.cpp.o	e9a35cebee3fd5c
+13	573	1752598574579741063	CMakeFiles/Chess.dir/Run.cpp.o	aa537c7c1d52f0e4
+14	1666	1752598574580060440	CMakeFiles/Chess.dir/Server_Manager.cpp.o	ed218900487d1ca2
+3	820	1752242364729063025	CMakeFiles/Chess.dir/Pawn_Cell.cpp.o	e121b2bd1c329244
+1	830	1752242364726998107	CMakeFiles/Chess.dir/Empty_Cell.cpp.o	d54bfd6bc7a80121
+8	3012	1753362742927142339	CMakeFiles/Chess.dir/Chess/main.cpp.o	c886115448299a0b
+3013	3114	1753362745931983876	Chess	187c6aa1a23e77d8
