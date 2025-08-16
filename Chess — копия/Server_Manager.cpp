@@ -41,5 +41,16 @@ std::shared_ptr<RunningGame> Games_Manager::GetGame(int id_game) {
     return nullptr;
 }
 
+std::string Games_Manager::GetBoardState(int id_game) {
+    std::lock_guard<std::mutex> lock(game_mutex_);
+
+    auto it = games_.find(id_game);
+    if (it != games_.end() && it->second) {
+        return it->second->GetBoardState();
+    }
+
+    throw std::runtime_error("Game not found with id: " + std::to_string(id_game));
+}
+
 
 

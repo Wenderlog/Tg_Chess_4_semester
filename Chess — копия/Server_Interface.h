@@ -4,9 +4,7 @@
 #pragma once
 
 #include <httplib.h>
-#include <mutex>
 #include <string>
-#include <map>
 #include "Table.h"
 #include "/Users/wenderlender/Desktop/Chess/Server_Manager.h"
 

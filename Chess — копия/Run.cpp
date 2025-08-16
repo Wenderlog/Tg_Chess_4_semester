@@ -127,6 +127,10 @@ void RunningGame::DisplayBoardState() const {
     std::cout << "Current board state:\n" << boardState << std::endl;
 }
 
+std::string RunningGame::GetBoardState() const {
+    return chessTable_.GenerateBoardState();
+}
+
 std::string RunningGame::GetPlayerInput() const {
     std::string input;
     std::cout << "Enter your move (e.g., e2 e4 or O-O): ";

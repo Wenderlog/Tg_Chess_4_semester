@@ -143,6 +143,7 @@ void ChessServer::runServer() {
     });
 
     svr.Post("/move", [&](const httplib::Request &req, httplib::Response &res) {
+    try {
         int player_id = std::stoi(req.get_param_value("id_player"));
         std::string move = req.get_param_value("move");
 
@@ -162,10 +163,19 @@ void ChessServer::runServer() {
         }
 
         bool success = game->HandleMove(move, database_.DetermineUserColor(player_id));
+
+        // сохраняем актуальное состояние доски конкретной игры
+        std::string new_state = manager_.GetBoardState(game_id);
+        database_.UpdateGameHistory(game_id, new_state);
+
         res.set_content(success ? "Move accepted" : "Invalid move", "text/plain");
-    });
+    } catch (const std::exception &e) {
+        res.set_content(std::string("Error: ") + e.what(), "text/plain");
+    }
+});
 
     svr.Get("/status", [&](const httplib::Request &req, httplib::Response &res) {
+    try {
         int player_id = std::stoi(req.get_param_value("id_player"));
 
         std::lock_guard<std::mutex> lock(game_mutex);
@@ -176,15 +186,25 @@ void ChessServer::runServer() {
         }
 
         int game_id = database_.GetGameIDByPlayerID(player_id);
-        auto game = manager_.GetGame(game_id);
-        if (!game) {
-            res.set_content("Game not found", "text/plain");
-            return;
+
+        pqxx::work txn(*database_.conn_);
+        pqxx::result r = txn.exec(
+            "SELECT board_states "
+            "FROM GameHistory "
+            "WHERE game_id = " + txn.esc(std::to_string(game_id))
+        );
+
+        std::string board_array;
+        if (!r.empty() && !r[0][0].is_null()) {
+            board_array = r[0][0].as<std::string>(); // преобразует массив PostgreSQL в строку
         }
 
-        std::string board = table.GenerateBoardState();
-        res.set_content("Board state:\n" + board, "text/plain");
-    });
+        std::cout << board_array << std::endl;
+        res.set_content("Board history:\n" + board_array, "text/plain");
+    } catch (const std::exception &e) {
+        res.set_content(std::string("Error: ") + e.what(), "text/plain");
+    }
+});
 
     svr.listen("0.0.0.0", 9090);
 }

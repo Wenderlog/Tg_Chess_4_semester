@@ -33,6 +33,7 @@ class idGenerator {
  * \class Games_Manager
  * \brief Управляет активными шахматными играми и взаимодействием с базой данных.
  */
+
 class Games_Manager {
 public:
     /*!
@@ -59,7 +60,12 @@ public:
      * \param id_game ID игры.
      * \return Умный указатель на игру, если найдена.
      */
+
+    Table& GetTable() { return table_; }
+    const Table& GetTable() const { return table_; }
+
     std::shared_ptr<RunningGame> GetGame(int id_game);
+    std::string GetBoardState(int id_game);
 
 private:
     idGenerator id_generator_;  ///< Генератор уникальных ID.

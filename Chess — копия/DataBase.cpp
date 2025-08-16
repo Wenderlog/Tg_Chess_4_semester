@@ -161,16 +161,16 @@ void DataBase::UpdateGameHistory(int game_id, const std::string& new_board_state
 
         pqxx::work txn(*conn_);
 
-        // Добавляем новое состояние доски в конец массива board_states
+        // Заменяем массив board_states новым состоянием доски (перезаписываем)
         std::string query =
             "UPDATE GameHistory "
-            "SET board_states = array_append(board_states, " + txn.quote(new_board_state) + ") " // по идее пихнуть в new_board_state результат функции GenerateBoardState из Table
+            "SET board_states = ARRAY[" + txn.quote(new_board_state) + "] "
             "WHERE game_id = " + txn.esc(std::to_string(game_id));
 
         txn.exec(query);
         txn.commit();
 
-        std::cout << "Обновлена история игры с game_id: " << game_id << std::endl;
+        std::cout << "История игры перезаписана для game_id: " << game_id << std::endl;
     } catch (const std::exception &e) {
         std::cerr << "Ошибка при обновлении истории игры: " << e.what() << std::endl;
         throw;
