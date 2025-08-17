@@ -7,14 +7,11 @@
 #pragma once
 
 #include <algorithm>
-#include <iostream>
 #include <memory>
 #include <sstream>
-#include <string>
-#include <utility>
-#include "Types/Game_types.h"
 
 #include "Table.h"
+#include "Types/Game_types.h"
 
 /*!
  * \class Manager

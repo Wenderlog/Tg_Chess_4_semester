@@ -4,9 +4,6 @@
 
 #include "Server_Manager.h"
 
-#include "Game.h"
-#include "Run.h"
-
 idGenerator::idGenerator(int id) : id_(id) {}
 
 int idGenerator::NextID() {

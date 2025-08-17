@@ -7,10 +7,7 @@
 #pragma once
 
 #include <deque>
-#include <iostream>
-#include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 #include "Bishop_Cell.h"

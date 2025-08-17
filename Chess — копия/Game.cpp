@@ -7,6 +7,8 @@
 
 #include "Game.h"
 
+#include <iostream>
+
 void Game::CheckFor50MovesWithoutCapture() {
     if (movesWithoutCapture >= 50) {
         std::cout << "50 moves without capture detected: draw!" << std::endl;

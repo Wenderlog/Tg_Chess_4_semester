@@ -5,8 +5,8 @@
 //
 
 #pragma once
+
 #include "Cell.h"
-#include <algorithm>
 
 constexpr std::string_view RookName = "Rook";
 

@@ -8,13 +8,13 @@ DataBase::DataBase(const std::string& conn_str) {
     try {
         conn_ = std::make_unique<pqxx::connection>(conn_str);
         if (conn_->is_open()) {
-            std::cout << "Соединение успешно." << std::endl;
+            std::cout << "The connection is successful." << std::endl;
         } else {
-            std::cerr << "Ошибка соединения." << std::endl;
+            std::cerr << "Connection error." << std::endl;
             conn_.reset();
         }
     } catch (const std::exception& e) {
-        std::cerr << "Вызвано исключение при подключении: " << e.what() << std::endl;
+        std::cerr << "An exception was raised when connecting: " << e.what() << std::endl;
         conn_.reset();
     }
 }
@@ -22,16 +22,14 @@ DataBase::DataBase(const std::string& conn_str) {
 pqxx::result DataBase::Execute(const std::string& query) {
     try {
         if (!conn_ || !conn_->is_open()) {
-            throw std::runtime_error("Соединение с БД не установлено");
+            throw std::runtime_error("Connection to the database is not established");
         }
 
         pqxx::work txn(*conn_);
         pqxx::result res = txn.exec(query);
         txn.commit();
 
-        // Безопасный вывод результата для отладки
         for (const auto& row : res) {
-            // Проверяем, есть ли колонки
             if (row.size() > 0) {
                 std::cout << "Row: ";
                 for (std::size_t i = 0; i < res.columns(); ++i) {
@@ -44,8 +42,8 @@ pqxx::result DataBase::Execute(const std::string& query) {
         return res;
     }
     catch (const std::exception &e) {
-        std::cerr << "Ошибка выполнения запроса: " << e.what() << std::endl;
-        throw;  // или можно вернуть пустой результат
+        std::cerr << "Request execution error: " << e.what() << std::endl;
+        throw;
     }
 }
 
@@ -56,14 +54,12 @@ std::string DataBase::DetermineUserColor(int user_id) {
 int DataBase::InsertIDToDataBase(int user_id, const std::string& username, int game_id) {
     try {
         if (!conn_ || !conn_->is_open()) {
-            std::cerr << "Соединение с БД не установлено" << std::endl;
-            return 1; // ошибка соединения
+            std::cerr << "Connection to the database is not established" << std::endl;
+            return 1;
         }
 
-        // Определяем цвет пользователя
         std::string userColour = (user_id % 2 == 0) ? "black" : "white";
 
-        // Формируем SQL-запрос с параметрами
         std::string query =
             "INSERT INTO \"User\" (user_id, username, game_id, userColour) VALUES (" +
             std::to_string(user_id) + ", " +
@@ -75,14 +71,13 @@ int DataBase::InsertIDToDataBase(int user_id, const std::string& username, int g
         txn.exec(query);
         txn.commit();
 
-        return 0; // успех
+        return 0;
     } catch (const std::exception& e) {
-        std::cerr << "Ошибка вставки пользователя: " << e.what() << std::endl;
-        return 1; // ошибка выполнения запроса
+        std::cerr << "User insertion error:" << e.what() << std::endl;
+        return 1;
     }
 }
 
-// Получить ID игрока по username
 void DataBase::GetPlayerID(const std::string& username) {
     try {
         std::string query = "SELECT user_id FROM \"User\" WHERE username = '" + conn_->esc(username) + "';";
@@ -90,16 +85,15 @@ void DataBase::GetPlayerID(const std::string& username) {
 
         if (!res.empty()) {
             int user_id = res[0]["user_id"].as<int>();
-            std::cout << "ID пользователя:" << username << " это " << user_id << std::endl;
+            std::cout << "User ID:" << username << " это " << user_id << std::endl;
         } else {
-            std::cout << "Пользователь не найден: " << username << std::endl;
+            std::cout << "The user was not found: " << username << std::endl;
         }
     } catch (const std::exception& e) {
-        std::cerr << "Ошибка в нахождении пользователя: " << e.what() << std::endl;
+        std::cerr << "Error in finding the user: " << e.what() << std::endl;
     }
 }
 
-// Получить ID игры по имени игрока
 void DataBase::GetGameID(const std::string& username) {
     try {
         std::string query = "SELECT game_id FROM \"User\" WHERE username = '" + conn_->esc(username) + "';";
@@ -116,7 +110,6 @@ void DataBase::GetGameID(const std::string& username) {
     }
 }
 
-// Удалить пользователя из базы по имени
 int DataBase::DeleteIDFromDataBase(const std::string& username) {
     try {
         std::string query = "DELETE FROM \"User\" WHERE username = '" + conn_->esc(username) + "';";
@@ -124,19 +117,17 @@ int DataBase::DeleteIDFromDataBase(const std::string& username) {
         txn.exec(query);
         txn.commit();
         std::cout << "User " << username << " deleted successfully." << std::endl;
-        return 0; // успех
+        return 0;
     } catch (const std::exception& e) {
         std::cerr << "Error deleting user: " << e.what() << std::endl;
-        return 1; // ошибка
+        return 1;
     }
 }
-
-//переписать логику, добавив к User логин или почту, тогда все будет работать.
 
 void DataBase::CreateNewGame(int game_id, const std::string& initial_board) {
     try {
         if (!conn_ || !conn_->is_open()) {
-            throw std::runtime_error("Соединение с БД не установлено");
+            throw std::runtime_error("Connection to the database is not established");
         }
 
         pqxx::work txn(*conn_);
@@ -146,9 +137,9 @@ void DataBase::CreateNewGame(int game_id, const std::string& initial_board) {
         txn.exec(query);
         txn.commit();
 
-        std::cout << "Создана новая игра с game_id: " << game_id << std::endl;
+        std::cout << "A new game has been created with game_id:" << game_id << std::endl;
     } catch (const std::exception &e) {
-        std::cerr << "Ошибка при создании новой игры: " << e.what() << std::endl;
+        std::cerr << "Error when creating a new game: " << e.what() << std::endl;
         throw;
     }
 }
@@ -156,12 +147,11 @@ void DataBase::CreateNewGame(int game_id, const std::string& initial_board) {
 void DataBase::UpdateGameHistory(int game_id, const std::string& new_board_state) {
     try {
         if (!conn_ || !conn_->is_open()) {
-            throw std::runtime_error("Соединение с БД не установлено");
+            throw std::runtime_error("Connection to the database is not established");
         }
 
         pqxx::work txn(*conn_);
 
-        // Заменяем массив board_states новым состоянием доски (перезаписываем)
         std::string query =
             "UPDATE GameHistory "
             "SET board_states = ARRAY[" + txn.quote(new_board_state) + "] "
@@ -170,9 +160,9 @@ void DataBase::UpdateGameHistory(int game_id, const std::string& new_board_state
         txn.exec(query);
         txn.commit();
 
-        std::cout << "История игры перезаписана для game_id: " << game_id << std::endl;
+        std::cout << "Game history is overwritten for game_id: " << game_id << std::endl;
     } catch (const std::exception &e) {
-        std::cerr << "Ошибка при обновлении истории игры: " << e.what() << std::endl;
+        std::cerr << "Error updating the game history: " << e.what() << std::endl;
         throw;
     }
 }
@@ -180,35 +170,33 @@ void DataBase::UpdateGameHistory(int game_id, const std::string& new_board_state
 int DataBase::DeleteGame(int game_id) {
     try {
         if (!conn_ || !conn_->is_open()) {
-            throw std::runtime_error("Соединение с БД не установлено");
+            throw std::runtime_error("Connection to the database is not established");
         }
 
         pqxx::work txn(*conn_);
 
-        // Удаляем записи из User, связанные с этой игрой (если нужно)
         std::string deleteUsersQuery =
             "DELETE FROM \"User\" WHERE game_id = " + txn.esc(std::to_string(game_id));
         txn.exec(deleteUsersQuery);
 
-        // Удаляем запись игры из GameHistory
         std::string deleteGameQuery =
             "DELETE FROM GameHistory WHERE game_id = " + txn.esc(std::to_string(game_id));
         txn.exec(deleteGameQuery);
 
         txn.commit();
 
-        std::cout << "Игра с game_id " << game_id << " успешно удалена" << std::endl;
-        return 0; // успех
+        std::cout << "Playing with game_id " << game_id << " successfully deleted" << std::endl;
+        return 0;
     } catch (const std::exception &e) {
-        std::cerr << "Ошибка при удалении игры: " << e.what() << std::endl;
-        return 1; // ошибка
+        std::cerr << "Error deleting the game: " << e.what() << std::endl;
+        return 1;
     }
 }
 
 int DataBase::GetGameIDByPlayerID(int user_id) {
     try {
         if (!conn_ || !conn_->is_open()) {
-            throw std::runtime_error("Соединение с БД не установлено");
+            throw std::runtime_error("Connection to the database is not established");
         }
 
         std::string query =
@@ -219,11 +207,11 @@ int DataBase::GetGameIDByPlayerID(int user_id) {
         if (!res.empty()){
             return res[0]["game_id"].as<int>();
         } else {
-            std::cerr << "⚠️ Пользователь с user_id = " << user_id << " не найден в базе." << std::endl;
-            return -1;  // Не найден
+            std::cerr << "⚠️ User with user_id= " << user_id << " not found in the database." << std::endl;
+            return -1;
         }
     } catch (const std::exception &e) {
-        std::cerr << "❌ Ошибка в GetGameIDByPlayerID: " << e.what() << std::endl;
-        return -1;  // Ошибка
+        std::cerr << "❌ Error in GetGameIDByPlayerID: " << e.what() << std::endl;
+        return -1;
     }
 }

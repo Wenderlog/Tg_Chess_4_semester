@@ -4,11 +4,7 @@
 //  Created by Кирилл Грибанов  on 06.12.2024.
 //
 
-#pragma once
-
 #include "Cell.h"
-#include "Empty_Cell.h"
-#include "Rook_Cell.h"
 #include <string_view>
 
 constexpr std::string_view KingName = "King";

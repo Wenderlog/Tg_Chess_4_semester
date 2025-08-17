@@ -12,9 +12,10 @@
  cell color, available moves and cell name.
  */
 
-#include "Types/Game_types.h"
 #include <string_view>
 #include <unordered_set>
+
+#include "Types/Game_types.h"
 
 /*! \brief Supports the basic functions of a regular cell in chess
  */

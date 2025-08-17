@@ -48,10 +48,8 @@ add_executable(Chess ${SOURCES} ${HEADERS})
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 target_include_directories(Chess PRIVATE ${Boost_INCLUDE_DIRS})
 
-# Пути к заголовкам libpqxx
 target_include_directories(Chess PRIVATE /opt/homebrew/Cellar/libpqxx/7.10.1/include)
 
-# Явно указываем путь к libpqxx и libpq
 target_link_libraries(Chess PRIVATE
         ${Boost_LIBRARIES}
         /opt/homebrew/lib/libboost_thread.dylib
