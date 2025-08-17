@@ -56,15 +56,15 @@ Entities:
  
 	•	board_states — current state of the chessboard
 
-  # 5. Database Diagram
-
-  Tables and relations:
+  # 5. MVC
   
-	•	User.game_id → foreign key referencing Game.game_id
- 
-	•	Game.board_states stores the current board as a serialized string (e.g., FEN or custom format)
+  <img width="3840" height="2706" alt="Chess_MVC_2" src="https://github.com/user-attachments/assets/5cebef83-89ca-4099-a464-051ae2e9f3f4" />
+
 
  # 6. User Scenarios
+
+ <img width="3840" height="3411" alt="Chess_MVC_1" src="https://github.com/user-attachments/assets/9d18b838-119b-4451-84d9-edb08a53ca3d" />
+
  
 	1.	Access via Telegram Bot: Users start the bot by clicking a link.
  
