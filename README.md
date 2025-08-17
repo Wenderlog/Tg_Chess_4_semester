@@ -125,3 +125,7 @@ Notes on Multithreading:
 	•	Improving move history and undo functionality.
  
 	•	Creating a web-based frontend in addition to Telegram for richer UX.
+
+ # License
+
+ This project is licensed under the MIT License - see the LICENSE file for details.
