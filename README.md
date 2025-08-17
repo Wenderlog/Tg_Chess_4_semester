@@ -1,5 +1,6 @@
 # Tg_Chess_4_semester
 
+
 # 1. Project Overview
 
 This project implements an online chess platform for two players, supporting multiple simultaneous games. Users interact with the system via a Telegram bot, which serves as the frontend for the platform. Players can authenticate, make moves, check the game status, and view the current board.
@@ -17,6 +18,7 @@ The system models a simplified chess domain:
 	•	The architecture is designed to support online multiplayer games safely and efficiently.
 
  # 3. Roles
+ 
 	•	Player: Only role in the system. Players can:
  
 	•	Authenticate via Telegram bot
@@ -32,6 +34,7 @@ The system models a simplified chess domain:
   # 4. ER Diagram of Entities
 
 Entities:
+
 	•	User
  
 	•	user_id — unique identifier
@@ -41,6 +44,8 @@ Entities:
 	•	game_id — ID of the game the user is participating in
  
 	•	user_colour — player colour (White or Black)
+
+
  
 	•	Game
  
@@ -62,15 +67,19 @@ Entities:
  
 	2.	Registration / Authentication: Users register with /auth <username> <email>.
  
+ 
 	3.	Gameplay:
  
 	•	Users make moves by sending text commands in the format e2e4.
  
 	•	The bot checks move validity and updates the board.
  
+ 
 	4.	Game Status: Users check the current game turn via /status.
  
+ 
 	5.	Exit: Users can terminate participation or finish the game naturally.
+ 
 
  # 7. Technology Stack
  
