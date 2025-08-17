@@ -2,75 +2,103 @@
 // Created by Кирилл Грибанов  on 05/04/2025.
 //
 
-#pragma once
-
-#include <mutex>
 #include <atomic>
-#include <thread>
-#include <unordered_map>
-#include "My_Blocking_Queue.h"
-#include "Types/DataBase_types.h"
-#include <boost/thread.hpp>
-#include <boost/chrono.hpp>
-#include <boost/asio.hpp>
 #include <boost/algorithm/string.hpp>
-#include "My_Blocking_Queue.h"
+#include <boost/asio.hpp>
+#include <boost/chrono.hpp>
+#include <boost/thread.hpp>
+#include <condition_variable>
+#include <map>
+#include <string>
+#include <thread>
+
 #include "DataBase.h"
 #include "Game.h"
 #include "Run.h"
 
+/*!
+ * \class idGenerator
+ * \brief Generates unique integer IDs for games or players.
+ */
 class idGenerator {
-    public:
-   explicit idGenerator (int id);
-   int NextID();
+public:
+    /*!
+     * \brief Constructor initializing the ID generator.
+     * \param id Starting ID value.
+     */
+    explicit idGenerator(int id);
 
+    /*!
+     * \brief Returns the next unique ID.
+     * \return Next integer ID.
+     */
+    int NextID();
 
-  private:
-    std::atomic<int> id_;
-  };
+private:
+    std::atomic<int> id_;  ///< Atomic counter for generating unique IDs.
+};
 
 /*!
  * \class Games_Manager
- * \brief Управляет активными шахматными играми и взаимодействием с базой данных.
+ * \brief Manages active chess games and handles interaction with the database.
  */
 class Games_Manager {
 public:
     /*!
-     * \brief Конструктор с параметром подключения к базе данных.
-     * \param db_conn_str Строка подключения к PostgreSQL.
+     * \brief Constructor with database connection string.
+     * \param db_conn_str PostgreSQL connection string.
      */
     explicit Games_Manager(const std::string& db_conn_str)
-        : id_generator_(1),                 // Запускаем генератор ID с 1
-          database_(db_conn_str),          // Подключаем БД
-          game_started_(false),            // Изначально игра не начата
-          table_(),                        // Инициализируем доску
-          start_game_(table_),             // Game зависит от table_
-          running_game_()                  // Если используется по умолчанию
+        : id_generator_(1),                 // Start ID generator from 1
+          database_(db_conn_str),           // Connect to the database
+          game_started_(false),             // Game initially not started
+          table_(),                         // Initialize chess board
+          start_game_(table_),              // Game depends on table
+          running_game_()                   // Default running game
     {}
 
     /*!
-     * \brief Генерация новой игры и получение её ID.
-     * \return Новый уникальный ID игры.
+     * \brief Generates a new game and returns its unique ID.
+     * \return New unique game ID.
      */
     int GenerateGames();
 
     /*!
-     * \brief Получить игру по ID.
-     * \param id_game ID игры.
-     * \return Умный указатель на игру, если найдена.
+     * \brief Returns a reference to the main chess table.
+     * \return Reference to the Table object.
+     */
+    Table& GetTable() { return table_; }
+
+    /*!
+     * \brief Returns a constant reference to the main chess table.
+     * \return Constant reference to the Table object.
+     */
+    const Table& GetTable() const { return table_; }
+
+    /*!
+     * \brief Retrieves a running game by its ID.
+     * \param id_game Game ID.
+     * \return Shared pointer to the RunningGame object, or nullptr if not found.
      */
     std::shared_ptr<RunningGame> GetGame(int id_game);
 
+    /*!
+     * \brief Returns the current board state for a given game.
+     * \param id_game Game ID.
+     * \return Board state as a string.
+     */
+    std::string GetBoardState(int id_game);
+
 private:
-    idGenerator id_generator_;  ///< Генератор уникальных ID.
-    DataBase database_;         ///< Объект работы с БД.
+    idGenerator id_generator_;                             ///< Unique ID generator.
+    DataBase database_;                                    ///< Database interface.
 
-    std::atomic<bool> game_started_;  ///< Флаг запуска игры.
-    Table table_;                     ///< Общая доска (если требуется).
-    Game start_game_;                 ///< Логика игры, использует table_.
-    RunningGame running_game_;        ///< Интерфейс хода (если используется напрямую).
+    std::atomic<bool> game_started_;                       ///< Flag indicating if a game has started.
+    Table table_;                                          ///< Shared chess table.
+    Game start_game_;                                      ///< Game logic using the table.
+    RunningGame running_game_;                              ///< RunningGame interface.
 
-    std::map<int, std::shared_ptr<RunningGame>> games_;  ///< Карта активных игр.
-    std::mutex game_mutex_;                              ///< Мьютекс доступа к играм.
-    std::condition_variable game_condition_;             ///< Для ожидания старта игры.
+    std::map<int, std::shared_ptr<RunningGame>> games_;    ///< Map of active games.
+    std::mutex game_mutex_;                                ///< Mutex for thread-safe access to games.
+    std::condition_variable game_condition_;              ///< Condition variable to wait for game start.
 };

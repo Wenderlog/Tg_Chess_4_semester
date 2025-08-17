@@ -6,6 +6,8 @@
 
 #include "Manager.h"
 
+#include <iostream>
+
 Coord Manager::ConvertToCoord(const std::string& square) {
     int col = square[0] - 'a';
     int row = 8 - (square[1] - '0');

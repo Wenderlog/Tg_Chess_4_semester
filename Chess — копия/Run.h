@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+
 #include "Manager.h"
 
 /*!
@@ -42,6 +43,7 @@ public:
 
     int Run();
     bool HandleMove(const std::string& move, const std::string& color);
+    std::string GetBoardState() const;
 
 
 private:

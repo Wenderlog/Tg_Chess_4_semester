@@ -7,6 +7,11 @@
 
 #include "Table.h"
 
+#include <iostream>
+
+#include "Empty_Cell.h"
+#include "Rook_Cell.h"
+
 auto& Table::operator[](size_t i) {
   return body_[i];
 }

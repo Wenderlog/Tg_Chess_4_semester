@@ -3,107 +3,6 @@
 //
 
 #include "Server_Interface.h"
-#include <iostream>
-/*
-void ChessServer::doAuth(const httplib::Request &req, httplib::Response &res) {
-    std::string player_id = req.get_param_value("id_player");
-    std::string color = req.get_param_value("color");
-
-    std::lock_guard<std::mutex> lock(game_mutex);
-
-    if (player_map.count(player_id)) {
-        res.set_content("Player already authenticated!", "text/plain");
-        return;
-    }
-
-    if (color == "White" && white_player_id.empty()) {
-        white_player_id = player_id;
-        player_map[player_id] = "White";
-    } else if (color == "Black" && black_player_id.empty()) {
-        black_player_id = player_id;
-        player_map[player_id] = "Black";
-    } else {
-        res.set_content("Color already taken or invalid.", "text/plain");
-        return;
-    }
-
-    res.set_content("Player authenticated: " + player_id + " as " + color, "text/plain");
-}
-void ChessServer::runServer() { // передать базу данных по ссылке для общения
-    httplib::Server svr;
-
-    svr.Get("/", [](const httplib::Request &, httplib::Response &res) {
-        res.set_content("Chess Server is running!", "text/plain");
-    });
-
-    std::cout << "✅ Server started at http://localhost:9090\n";
-
-    svr.Post("/auth", [&](const httplib::Request &req, httplib::Response &res) {
-        this->doAuth(req, res);
-    });
-
-    // Move
-    svr.Post("/move", [&](const httplib::Request &req, httplib::Response &res) {
-        std::string player_id = req.get_param_value("id_player");
-        std::string move = req.get_param_value("move");
-
-        std::lock_guard<std::mutex> lock(game_mutex);
-
-        if (player_map.find(player_id) == player_map.end()) {
-            res.set_content("You are not authenticated!", "text/plain");
-            return;
-        }
-
-        std::string color = player_map[player_id];
-        Colour current_turn = table.GetCurrentTurn();
-
-        if ((color == "White" && current_turn != Colour::WHITE) ||
-            (color == "Black" && current_turn != Colour::BLACK)) {
-            res.set_content("It's not your turn!", "text/plain");
-            return;
-        }
-
-        auto coords = manager_.WordToCoord(table.getBoard(), move);
-
-        if (coords.first.row == 8 || coords.second.row == 8) {
-            res.set_content("Invalid coordinates!", "text/plain");
-            return;
-        }
-
-        auto turnVerdict = table.CheckTurn(coords.first, coords.second);
-        if (turnVerdict != Table::TurnVerdict::correct) {
-            res.set_content("Invalid move!", "text/plain");
-            return;
-        }
-
-        table.DoTurn(coords.first, coords.second);
-        current_turn = (current_turn == Colour::WHITE) ? Colour::BLACK : Colour::WHITE;
-        res.set_content("Move accepted: " + move + ". Now it's " + (current_turn == Colour::WHITE ? "White" : "Black") + "'s turn.", "text/plain");
-    });
-
-    // Game status
-    svr.Get("/status", [&](const httplib::Request &, httplib::Response &res) {
-        std::lock_guard<std::mutex> lock(game_mutex);
-
-        Colour current_turn = table.GetCurrentTurn();
-        std::string turn_str = (current_turn == Colour::WHITE) ? "White" : "Black";
-        res.set_content("Current turn: " + turn_str +
-                        "\nWhite: " + (white_player_id.empty() ? "None" : white_player_id) +
-                        "\nBlack: " + (black_player_id.empty() ? "None" : black_player_id), "text/plain");
-    });
-
-
-    svr.Get("/board", [&](const httplib::Request &, httplib::Response &res) {
-        std::lock_guard<std::mutex> lock(game_mutex);
-        std::string boardState = table.GenerateBoardState();
-        res.set_content(boardState, "text/plain");
-    });
-
-    if (!svr.listen("0.0.0.0", 9090)) {
-        std::cerr << "❌ Server failed to start on port 9090\n";
-    }
-}
-*/
 
 void ChessServer::runServer() {
     httplib::Server svr;
@@ -143,6 +42,7 @@ void ChessServer::runServer() {
     });
 
     svr.Post("/move", [&](const httplib::Request &req, httplib::Response &res) {
+    try {
         int player_id = std::stoi(req.get_param_value("id_player"));
         std::string move = req.get_param_value("move");
 
@@ -162,10 +62,19 @@ void ChessServer::runServer() {
         }
 
         bool success = game->HandleMove(move, database_.DetermineUserColor(player_id));
+
+        // сохраняем актуальное состояние доски конкретной игры
+        std::string new_state = manager_.GetBoardState(game_id);
+        database_.UpdateGameHistory(game_id, new_state);
+
         res.set_content(success ? "Move accepted" : "Invalid move", "text/plain");
-    });
+    } catch (const std::exception &e) {
+        res.set_content(std::string("Error: ") + e.what(), "text/plain");
+    }
+});
 
     svr.Get("/status", [&](const httplib::Request &req, httplib::Response &res) {
+    try {
         int player_id = std::stoi(req.get_param_value("id_player"));
 
         std::lock_guard<std::mutex> lock(game_mutex);
@@ -176,15 +85,25 @@ void ChessServer::runServer() {
         }
 
         int game_id = database_.GetGameIDByPlayerID(player_id);
-        auto game = manager_.GetGame(game_id);
-        if (!game) {
-            res.set_content("Game not found", "text/plain");
-            return;
+
+        pqxx::work txn(*database_.conn_);
+        pqxx::result r = txn.exec(
+            "SELECT board_states "
+            "FROM GameHistory "
+            "WHERE game_id = " + txn.esc(std::to_string(game_id))
+        );
+
+        std::string board_array;
+        if (!r.empty() && !r[0][0].is_null()) {
+            board_array = r[0][0].as<std::string>(); // преобразует массив PostgreSQL в строку
         }
 
-        std::string board = table.GenerateBoardState();
-        res.set_content("Board state:\n" + board, "text/plain");
-    });
+        std::cout << board_array << std::endl;
+        res.set_content("Board history:\n" + board_array, "text/plain");
+    } catch (const std::exception &e) {
+        res.set_content(std::string("Error: ") + e.what(), "text/plain");
+    }
+});
 
     svr.listen("0.0.0.0", 9090);
 }

@@ -7,6 +7,9 @@
 
 #include "King_Cell.h"
 
+#include "Empty_Cell.h"
+#include "Rook_Cell.h"
+
 KingCell::KingCell(Coord coord, Colour colour) : Cell(coord), colour_(colour) {
 }
 

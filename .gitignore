@@ -32,3 +32,9 @@
 *.app
 *.json
 *.json
+*.iml
+*.xml
+TGbot — копия/poetry.lock
+TGbot — копия/pyproject.toml
+Chess — копия/.DS_Store
+Chess — копия/cmake-build-debug/.ninja_deps

@@ -4,9 +4,6 @@
 
 #include "Server_Manager.h"
 
-#include "Game.h"
-#include "Run.h"
-
 idGenerator::idGenerator(int id) : id_(id) {}
 
 int idGenerator::NextID() {
@@ -39,6 +36,17 @@ std::shared_ptr<RunningGame> Games_Manager::GetGame(int id_game) {
     if (it != games_.end())
         return it->second;
     return nullptr;
+}
+
+std::string Games_Manager::GetBoardState(int id_game) {
+    std::lock_guard<std::mutex> lock(game_mutex_);
+
+    auto it = games_.find(id_game);
+    if (it != games_.end() && it->second) {
+        return it->second->GetBoardState();
+    }
+
+    throw std::runtime_error("Game not found with id: " + std::to_string(id_game));
 }
 
 
