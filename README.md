@@ -33,6 +33,9 @@ The system models a simplified chess domain:
 
   # 4. ER Diagram of Entities
 
+  <img width="426" height="243" alt="image" src="https://github.com/user-attachments/assets/cb5ae4b4-bcc3-46ec-b9d7-0dc52a2ab2c4" />
+
+
 Entities:
 
 	•	User
